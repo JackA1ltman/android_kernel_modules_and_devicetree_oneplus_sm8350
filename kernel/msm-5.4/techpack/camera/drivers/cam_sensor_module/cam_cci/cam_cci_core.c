@@ -7,6 +7,7 @@
 #include "cam_cci_core.h"
 #include "cam_cci_dev.h"
 #include "cam_req_mgr_workq.h"
+#include "cam_common_util.h"
 #ifdef OPLUS_FEATURE_CAMERA_COMMON
 #define DUMP_CCI_REGISTERS 1
 #include "cam_cci_ctrl_interface.h"
@@ -1502,8 +1503,10 @@ static void cam_cci_write_async_helper(struct work_struct *work)
 	enum cci_i2c_master_t master;
 	struct cam_cci_master_info *cci_master_info;
 
-	cam_req_mgr_thread_switch_delay_detect(
-		write_async->workq_scheduled_ts);
+	cam_common_util_thread_switch_delay_detect(
+		"CCI workq schedule",
+		write_async->workq_scheduled_ts,
+		CAM_WORKQ_SCHEDULE_TIME_THRESHOLD);
 	cci_dev = write_async->cci_dev;
 	i2c_msg = &write_async->c_ctrl.cfg.cci_i2c_write_cfg;
 	master = write_async->c_ctrl.cci_info->cci_i2c_master;
