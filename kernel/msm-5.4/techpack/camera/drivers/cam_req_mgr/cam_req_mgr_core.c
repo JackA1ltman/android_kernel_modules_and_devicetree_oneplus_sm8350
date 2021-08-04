@@ -42,10 +42,10 @@ void cam_req_mgr_core_link_reset(struct cam_req_mgr_core_link *link)
 	link->last_flush_id = 0;
 	link->initial_sync_req = -1;
 	link->dual_trigger = false;
-	link->trigger_cnt[0][0] = 0;
-	link->trigger_cnt[0][1] = 0;
-	link->trigger_cnt[1][0] = 0;
-	link->trigger_cnt[1][1] = 0;
+	link->trigger_cnt[0][CAM_TRIGGER_POINT_SOF] = 0;
+	link->trigger_cnt[0][CAM_TRIGGER_POINT_EOF] = 0;
+	link->trigger_cnt[1][CAM_TRIGGER_POINT_SOF] = 0;
+	link->trigger_cnt[1][CAM_TRIGGER_POINT_EOF] = 0;
 	link->in_msync_mode = false;
 	link->retry_cnt = 0;
 	link->is_shutdown = false;
@@ -572,10 +572,10 @@ static void __cam_req_mgr_flush_req_slot(
 
 	in_q->wr_idx = 0;
 	in_q->rd_idx = 0;
-	link->trigger_cnt[0][0] = 0;
-	link->trigger_cnt[0][1] = 0;
-	link->trigger_cnt[1][0] = 0;
-	link->trigger_cnt[1][1] = 0;
+	link->trigger_cnt[0][CAM_TRIGGER_POINT_SOF] = 0;
+	link->trigger_cnt[0][CAM_TRIGGER_POINT_EOF] = 0;
+	link->trigger_cnt[1][CAM_TRIGGER_POINT_SOF] = 0;
+	link->trigger_cnt[1][CAM_TRIGGER_POINT_EOF] = 0;
 }
 
 /**
