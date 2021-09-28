@@ -2057,10 +2057,8 @@ irqreturn_t hif_wake_interrupt_handler(int irq, void *context)
 		wlan_resume_inc();
 	}
 	#endif
-	if (hif_pm_runtime_get_monitor_wake_intr(hif_ctx)) {
-		hif_pm_runtime_set_monitor_wake_intr(hif_ctx, 0);
-		hif_pm_runtime_request_resume(hif_ctx);
-	}
+	hif_pm_runtime_set_monitor_wake_intr(hif_ctx, 0);
+	hif_pm_runtime_request_resume(hif_ctx);
 
 	if (scn->initial_wakeup_cb)
 		scn->initial_wakeup_cb(scn->initial_wakeup_priv);
