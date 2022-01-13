@@ -350,9 +350,11 @@
 #define SIR_MAC_BAD_SU_BFORMEE_VENDOR_OUI2     "\x00\x10\x18\x02\03\00\1c\00\00"
 #define SIR_MAC_BAD_SU_BFORMEE_VENDOR_OUI_LEN         9
 
-/* Maximum allowable size of a beacon and probe rsp frame */
-#define SIR_MAX_BEACON_SIZE    512
+/* Maximum allowable size of a beacon,probe rsp and fils discovery frame */
+#define SIR_MAX_BEACON_SIZE     512
 #define SIR_MAX_PROBE_RESP_SIZE 512
+#define SIR_MAX_FD_TMPL_SIZE    512
+
 
 /* / Frame control field format (2 bytes) */
 typedef struct sSirMacFrameCtl {
