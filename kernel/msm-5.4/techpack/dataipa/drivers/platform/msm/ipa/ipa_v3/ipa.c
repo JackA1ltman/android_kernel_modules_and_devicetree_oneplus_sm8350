@@ -7596,8 +7596,6 @@ static int ipa3_pre_init(const struct ipa3_plat_drv_res *resource_p,
 	/*Updating the proxy vote cnt 1 */
 	atomic_set(&ipa3_ctx->ipa3_active_clients.cnt, 1);
 	/* Create workqueues for power management */
-	//ipa3_ctx->power_mgmt_wq =
-	//	create_singlethread_workqueue("ipa_power_mgmt");
 #if defined(OPLUS_FEATURE_SCHED_ASSIST) && defined(CONFIG_OPLUS_FEATURE_SCHED_ASSIST)
 	ipa3_ctx->power_mgmt_wq = alloc_workqueue("ipa_power_mgmt",
 		WQ_MEM_RECLAIM | WQ_UNBOUND | WQ_SYSFS | WQ_HIGHPRI | WQ_UX, 1);
@@ -7605,7 +7603,6 @@ static int ipa3_pre_init(const struct ipa3_plat_drv_res *resource_p,
 	ipa3_ctx->power_mgmt_wq = alloc_workqueue("ipa_power_mgmt",
 		WQ_MEM_RECLAIM | WQ_UNBOUND | WQ_SYSFS | WQ_HIGHPRI, 1);
 #endif
-	//end
 	if (!ipa3_ctx->power_mgmt_wq) {
 		IPAERR("failed to create power mgmt wq\n");
 		result = -ENOMEM;
