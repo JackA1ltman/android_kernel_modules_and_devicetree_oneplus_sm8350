@@ -41,12 +41,10 @@ int cam_packet_util_get_cmd_mem_addr(int handle, uint32_t **buf_addr,
 
 int cam_packet_util_validate_cmd_desc(struct cam_cmd_buf_desc *cmd_desc)
 {
-#ifdef OPLUS_FEATURE_CAMERA_COMMON
 	if (!cmd_desc) {
 		CAM_ERR(CAM_UTIL, "Invalid cmd desc");
 		return -EINVAL;
 	}
-#endif
 
 	if ((cmd_desc->length > cmd_desc->size) ||
 		(cmd_desc->mem_handle <= 0)) {
@@ -88,9 +86,7 @@ int cam_packet_util_validate_packet(struct cam_packet *packet,
 	pkt_wo_payload = offsetof(struct cam_packet, payload);
 
 	if ((!packet->header.size) ||
-#ifdef OPLUS_FEATURE_CAMERA_COMMON
 		((size_t)packet->header.size <= pkt_wo_payload) ||
-#endif
 		((pkt_wo_payload + (size_t)packet->cmd_buf_offset +
 		sum_cmd_desc) > (size_t)packet->header.size) ||
 		((pkt_wo_payload + (size_t)packet->io_configs_offset +
@@ -120,12 +116,10 @@ int cam_packet_util_get_kmd_buffer(struct cam_packet *packet,
 		return -EINVAL;
 	}
 
-#ifdef OPLUS_FEATURE_CAMERA_COMMON
 	if (!packet->num_cmd_buf) {
 		CAM_ERR(CAM_UTIL, "Invalid num_cmd_buf = %d", packet->num_cmd_buf);
 		return -EINVAL;
 	}
-#endif
 
 	if ((packet->kmd_cmd_buf_index < 0) ||
 		(packet->kmd_cmd_buf_index >= packet->num_cmd_buf)) {

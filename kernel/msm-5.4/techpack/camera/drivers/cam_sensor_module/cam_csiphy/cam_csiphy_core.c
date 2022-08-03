@@ -393,7 +393,6 @@ int32_t cam_cmd_buf_parser(struct csiphy_device *csiphy_dev,
 		return rc;
 	}
 
-#ifdef OPLUS_FEATURE_CAMERA_COMMON
 	if (csl_packet->num_cmd_buf)
 		cmd_desc = (struct cam_cmd_buf_desc *)
 			((uint32_t *)&csl_packet->payload +
@@ -409,11 +408,6 @@ int32_t cam_cmd_buf_parser(struct csiphy_device *csiphy_dev,
 		CAM_ERR(CAM_CSIPHY, "Invalid cmd desc ret: %d", rc);
 		return rc;
 	}
-#else
-	cmd_desc = (struct cam_cmd_buf_desc *)
-		((uint32_t *)&csl_packet->payload +
-		csl_packet->cmd_buf_offset / 4);
-#endif
 
 	rc = cam_mem_get_cpu_buf(cmd_desc->mem_handle,
 		&generic_ptr, &len);

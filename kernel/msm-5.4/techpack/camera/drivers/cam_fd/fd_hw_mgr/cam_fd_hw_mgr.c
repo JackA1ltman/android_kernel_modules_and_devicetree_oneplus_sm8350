@@ -55,11 +55,7 @@ static int cam_fd_mgr_util_packet_validate(struct cam_packet *packet,
 	}
 
 	/* All buffers must come through io config, do not support patching */
-#ifdef OPLUS_FEATURE_CAMERA_COMMON
 	if (packet->num_patches || !packet->num_io_configs || !packet->num_cmd_buf) {
-#else
-	if (packet->num_patches || !packet->num_io_configs) {
-#endif
 		CAM_ERR(CAM_FD, "wrong number of cmd/patch info: %u %u",
 			packet->num_cmd_buf, packet->num_patches);
 		return -EINVAL;

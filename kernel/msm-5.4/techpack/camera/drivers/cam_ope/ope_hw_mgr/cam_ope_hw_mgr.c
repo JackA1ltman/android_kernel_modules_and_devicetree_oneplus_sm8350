@@ -2379,23 +2379,15 @@ static int cam_ope_mgr_pkt_validation(struct cam_packet *packet)
 		return -EINVAL;
 	}
 
-#ifdef OPLUS_FEATURE_CAMERA_COMMON
 	if (!packet->num_io_configs ||
 		packet->num_io_configs > OPE_MAX_IO_BUFS) {
-#else
-	if (packet->num_io_configs > OPE_MAX_IO_BUFS) {
-#endif
 		CAM_ERR(CAM_OPE, "Invalid number of io configs: %d %d",
 			OPE_MAX_IO_BUFS, packet->num_io_configs);
 		return -EINVAL;
 	}
 
-#ifdef OPLUS_FEATURE_CAMERA_COMMON
 	if (!packet->num_cmd_buf ||
 		packet->num_cmd_buf > OPE_PACKET_MAX_CMD_BUFS) {
-#else
-	if (packet->num_cmd_buf > OPE_PACKET_MAX_CMD_BUFS) {
-#endif
 		CAM_ERR(CAM_OPE, "Invalid number of cmd buffers: %d %d",
 			OPE_PACKET_MAX_CMD_BUFS, packet->num_cmd_buf);
 		return -EINVAL;
