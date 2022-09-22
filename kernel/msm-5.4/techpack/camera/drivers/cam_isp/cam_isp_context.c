@@ -4384,7 +4384,6 @@ error:
 	return 0;
 }
 
-#ifdef OPLUS_FEATURE_CAMERA_COMMON
 static int __cam_isp_ctx_rdi_only_reg_upd_in_applied_state(
 	struct cam_isp_context *ctx_isp, void *evt_data)
 {
@@ -4443,7 +4442,6 @@ end:
 	ctx_isp->substate_activated = CAM_ISP_CTX_ACTIVATED_SOF;
 	return 0;
 }
-#endif
 
 static struct cam_isp_ctx_irq_ops
 	cam_isp_ctx_rdi_only_activated_state_machine_irq
@@ -4464,11 +4462,7 @@ static struct cam_isp_ctx_irq_ops
 		.irq_ops = {
 			__cam_isp_ctx_handle_error,
 			__cam_isp_ctx_rdi_only_sof_in_applied_state,
-#ifdef OPLUS_FEATURE_CAMERA_COMMON
 			__cam_isp_ctx_rdi_only_reg_upd_in_applied_state,
-#else
-			NULL,
-#endif
 			NULL,
 			__cam_isp_ctx_notify_eof_in_activated_state,
 			__cam_isp_ctx_buf_done_in_applied,
