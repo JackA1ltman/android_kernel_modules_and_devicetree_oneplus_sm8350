@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0-only
 /* Copyright (c) 2012-2020, The Linux Foundation. All rights reserved.
+ * Copyright (c) 2023, Qualcomm Innovation Center, Inc. All rights reserved.
  */
 
 #include <linux/init.h>
@@ -365,8 +366,6 @@ static void voip_process_ul_pkt(uint8_t *voc_pkt,
 		switch (prtd->mode) {
 		case MODE_AMR_WB:
 		case MODE_AMR: {
-#ifdef OPLUS_ARCH_EXTENDS
-			/* Apply CR#3453288 to Avoid interger underflow */
 			if (pkt_len <= DSP_FRAME_HDR_LEN) {
 				pr_err("%s: pkt_len %d is < required len\n",
 						__func__, pkt_len);
@@ -374,7 +373,6 @@ static void voip_process_ul_pkt(uint8_t *voc_pkt,
 							dsp_flags);
 				return;
 			}
-#endif /*OPLUS_ARCH_EXTENDS*/
 			/* Remove the DSP frame info header. Header format:
 			 * Bits 0-3: Frame rate
 			 * Bits 4-7: Frame type
@@ -395,8 +393,6 @@ static void voip_process_ul_pkt(uint8_t *voc_pkt,
 		case MODE_4GV_NB:
 		case MODE_4GV_WB:
 		case MODE_4GV_NW: {
-#ifdef OPLUS_ARCH_EXTENDS
-			/* Apply CR#3453288 to Avoid interger underflow */
 			if (pkt_len <= DSP_FRAME_HDR_LEN) {
 				pr_err("%s: pkt_len %d is < required len\n",
 						__func__, pkt_len);
@@ -404,7 +400,6 @@ static void voip_process_ul_pkt(uint8_t *voc_pkt,
 							dsp_flags);
 				return;
 			}
-#endif /*OPLUS_ARCH_EXTENDS*/
 			/* Remove the DSP frame info header.
 			 * Header format:
 			 * Bits 0-3: frame rate
@@ -442,8 +437,6 @@ static void voip_process_ul_pkt(uint8_t *voc_pkt,
 			buf_node->frame.frm_hdr.timestamp = timestamp;
 			voc_pkt = voc_pkt + DSP_FRAME_HDR_LEN;
 
-#ifdef OPLUS_ARCH_EXTENDS
-			/* Apply CR#3453288 to Avoid interger underflow */
 			if (pkt_len <= 2 * DSP_FRAME_HDR_LEN) {
 				pr_err("%s: pkt_len %d is < required len\n",
 						__func__, pkt_len);
@@ -451,7 +444,6 @@ static void voip_process_ul_pkt(uint8_t *voc_pkt,
 							dsp_flags);
 				return;
 			}
-#endif /*OPLUS_ARCH_EXTENDS*/
 			/* There are two frames in the buffer. Length of the
 			 * first frame:
 			 */
@@ -487,8 +479,6 @@ static void voip_process_ul_pkt(uint8_t *voc_pkt,
 				buf_node->frame.frm_hdr.timestamp = timestamp;
 				voc_pkt = voc_pkt + DSP_FRAME_HDR_LEN;
 
-#ifdef OPLUS_ARCH_EXTENDS
-				/* Apply CR#3453288 to Avoid interger underflow */
 				if (pkt_len <= 2 * DSP_FRAME_HDR_LEN) {
 					pr_err("%s: pkt_len %d is < required len\n",
 							__func__, pkt_len);
@@ -496,7 +486,6 @@ static void voip_process_ul_pkt(uint8_t *voc_pkt,
 								dsp_flags);
 					return;
 				}
-#endif /*OPLUS_ARCH_EXTENDS*/
 
 				/* There are two frames in the buffer. Length
 				 * of the second frame:
