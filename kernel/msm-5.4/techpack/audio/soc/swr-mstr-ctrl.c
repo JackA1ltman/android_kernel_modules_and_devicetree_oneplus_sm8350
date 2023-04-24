@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-only
 /*
  * Copyright (c) 2015-2021, The Linux Foundation. All rights reserved.
- * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
+ * Copyright (c) 2022-2023 Qualcomm Innovation Center, Inc. All rights reserved.
  */
 
 #include <linux/irq.h>
@@ -1775,11 +1775,8 @@ static int swrm_slvdev_datapath_control(struct swr_master *master, bool enable)
 		dev_dbg(&master->dev, "%s: pm_runtime auto suspend triggered\n",
 			__func__);
 		pm_runtime_mark_last_busy(swrm->dev);
-#ifdef OPLUS_BUG_STABILITY
-		/* Apply CR#3003964 to reduce the auto suspend timeout when swr event finished */
 		if (!enable)
 			pm_runtime_set_autosuspend_delay(swrm->dev, 80);
-#endif
 		pm_runtime_put_autosuspend(swrm->dev);
 	}
 exit:
@@ -3445,12 +3442,9 @@ exit:
 	/* Apply CR#3096189 to swr-mstr-ctrl: add new lock to sync runtime_resume and runtime_suspend */
 	mutex_unlock(&swrm->runtime_lock);
 #endif
-#ifdef OPLUS_BUG_STABILITY
-	/* Apply CR#3003964 to reduce the auto suspend timeout when swr event finished */
-	dev_dbg(dev, "%s: pm_runtime: suspend done state: %d swrm->pm_state %d\n",
-		__func__, swrm->state,swrm->pm_state);
+	dev_dbg(dev, "%s: pm_runtime: suspend done state: %d\n",
+			__func__, swrm->state);
 	pm_runtime_set_autosuspend_delay(dev, auto_suspend_timer);
-#endif
 	return ret;
 }
 #endif /* CONFIG_PM */
