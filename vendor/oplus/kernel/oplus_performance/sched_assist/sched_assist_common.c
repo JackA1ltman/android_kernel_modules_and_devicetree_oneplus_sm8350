@@ -3411,15 +3411,28 @@ unsigned int ux_task_exec_limit(struct task_struct *p)
 		return exec_limit;
 	}
 
-	if (ux_state & SA_TYPE_ANIMATOR)
-		exec_limit *= 8;
-	else if (ux_state & SA_TYPE_LIGHT)
+/*  add sysctl_ux_task_prefercpu_enable*/
+if (sysctl_ux_task_prefercpu_enable) {
+	if (ux_state & SA_TYPE_ANIMATOR) {
+		exec_limit *= 12;
+	} else if (ux_state & SA_TYPE_LIGHT) {
 		exec_limit *= 2;
-	else if (ux_state & SA_TYPE_HEAVY)
-		exec_limit *= 8;
-	else if (ux_state & SA_TYPE_LISTPICK)
+	} else if (ux_state & SA_TYPE_HEAVY) {
 		exec_limit *= 25;
-
+	} else if (ux_state & SA_TYPE_LISTPICK) {
+		exec_limit *= 25;
+	}
+} else {
+	if (ux_state & SA_TYPE_ANIMATOR) {
+		exec_limit *= 8;
+	} else if (ux_state & SA_TYPE_LIGHT) {
+		exec_limit *= 2;
+	} else if (ux_state & SA_TYPE_HEAVY) {
+		exec_limit *= 8;
+	} else if (ux_state & SA_TYPE_LISTPICK) {
+		exec_limit *= 25;
+	}
+}
 	return exec_limit;
 }
 

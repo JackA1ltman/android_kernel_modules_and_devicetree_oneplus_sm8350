@@ -697,7 +697,7 @@
 	qcom,default_little_cool_vfloat_over_sw_limit = <4465>;
 
 	oplus,boot_reset_adapter;
-	oplus,aging_ffc_version = <1>;
+	oplus_spec,dec-vol-fv-mv = <40>;
 	oplus,smooth_switch_v2;
 	oplus,reserve_chg_soc = <3>;
 	oplus,reserve_dis_soc = <3>;
